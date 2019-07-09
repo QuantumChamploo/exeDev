@@ -11,89 +11,6 @@ def _reset_sys_path():
 _reset_sys_path()
 
 
-def _fixup_virtualenv(real_prefix):
-    import sys
-    import os
-
-    sys.real_prefix = real_prefix
-
-    # NOTE: The adjustment code is based from logic in the site.py
-    # installed by virtualenv 1.8.2 (but simplified by removing support
-    # for platforms that aren't supported by py2app)
-
-    paths = [os.path.join(sys.real_prefix, 'lib', 'python'+sys.version[:3])]
-    hardcoded_relative_dirs = paths[:]
-    plat_path = os.path.join(
-        sys.real_prefix, 'lib', 'python'+sys.version[:3],
-        'plat-%s' % sys.platform)
-    if os.path.exists(plat_path):
-        paths.append(plat_path)
-
-    # This is hardcoded in the Python executable, but
-    # relative to sys.prefix, so we have to fix up:
-    for path in list(paths):
-        tk_dir = os.path.join(path, 'lib-tk')
-        if os.path.exists(tk_dir):
-            paths.append(tk_dir)
-
-    # These are hardcoded in the Apple's Python executable,
-    # but relative to sys.prefix, so we have to fix them up:
-    hardcoded_paths = [
-        os.path.join(relative_dir, module)
-        for relative_dir in hardcoded_relative_dirs
-        for module in (
-            'plat-darwin', 'plat-mac', 'plat-mac/lib-scriptpackages')]
-
-    for path in hardcoded_paths:
-        if os.path.exists(path):
-            paths.append(path)
-
-    sys.path.extend(paths)
-
-
-_fixup_virtualenv('/usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7')
-
-def _site_packages(prefix, real_prefix, global_site_packages):
-    import site
-    import sys
-    import os
-
-    paths = []
-
-    paths.append(
-        os.path.join(
-            prefix, 'lib', 'python' + sys.version[:3], 'site-packages'))
-    if os.path.join('.framework', '') in os.path.join(prefix, ''):
-        home = os.environ.get('HOME')
-        if home:
-            paths.append(
-                os.path.join(
-                    home, 'Library', 'Python',
-                    sys.version[:3], 'site-packages'))
-
-    # Work around for a misfeature in setuptools: easy_install.pth places
-    # site-packages way to early on sys.path and that breaks py2app bundles.
-    # NOTE: this is hacks into an undocumented feature of setuptools and
-    # might stop to work without warning.
-    sys.__egginsert = len(sys.path)
-
-    for path in paths:
-        site.addsitedir(path)
-
-    # Ensure that the global site packages get placed on sys.path after
-    # the site packages from the virtual environment (this functionality
-    # is also in virtualenv)
-    sys.__egginsert = len(sys.path)
-
-    if global_site_packages:
-        site.addsitedir(
-            os.path.join(
-                real_prefix, 'lib', 'python' + sys.version[:3],
-                'site-packages'))
-
-
-_site_packages('/Users/oregonweedery/env1/bin/..', '/usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7', 0)
-
 def _chdir_resource():
     import os
     os.chdir(os.environ['RESOURCEPATH'])
@@ -102,23 +19,17 @@ def _chdir_resource():
 _chdir_resource()
 
 
-def _setup_ctypes():
-    from ctypes.macholib import dyld
-    import os
-    frameworks = os.path.join(os.environ['RESOURCEPATH'], '..', 'Frameworks')
-    dyld.DEFAULT_FRAMEWORK_FALLBACK.insert(0, frameworks)
-    dyld.DEFAULT_LIBRARY_FALLBACK.insert(0, frameworks)
+def _disable_linecache():
+    import linecache
+
+    def fake_getline(*args, **kwargs):
+        return ''
+
+    linecache.orig_getline = linecache.getline
+    linecache.getline = fake_getline
 
 
-_setup_ctypes()
-
-
-def _path_inject(paths):
-    import sys
-    sys.path[:0] = paths
-
-
-_path_inject(['/Users/oregonweedery/gitbits/py2appDev'])
+_disable_linecache()
 
 
 import re
@@ -147,32 +58,96 @@ def _run():
     import os
     import site  # noqa: F401
     sys.frozen = 'macosx_app'
+    base = os.environ['RESOURCEPATH']
 
     argv0 = os.path.basename(os.environ['ARGVZERO'])
     script = SCRIPT_MAP.get(argv0, DEFAULT_SCRIPT)  # noqa: F821
 
-    sys.argv[0] = __file__ = script
+    path = os.path.join(base, script)
+    sys.argv[0] = __file__ = path
     if sys.version_info[0] == 2:
-        with open(script, 'rU') as fp:
+        with open(path, 'rU') as fp:
             source = fp.read() + "\n"
     else:
-        with open(script, 'rb') as fp:
+        with open(path, 'rb') as fp:
             encoding = guess_encoding(fp)
 
-        with open(script, 'r', encoding=encoding) as fp:
+        with open(path, 'r', encoding=encoding) as fp:
             source = fp.read() + '\n'
 
         BOM = b'\xef\xbb\xbf'.decode('utf-8')
-
         if source.startswith(BOM):
             source = source[1:]
 
-    exec(compile(source, script, 'exec'), globals(), globals())
+    exec(compile(source, path, 'exec'), globals(), globals())
 
 
-DEFAULT_SCRIPT='/Users/oregonweedery/gitbits/py2appDev/sample_plots.py'
+def _recipes_pil_prescript(plugins):
+    try:
+        import Image
+        have_PIL = False
+    except ImportError:
+        from PIL import Image
+        have_PIL = True
+
+    import sys
+
+    def init():
+        if Image._initialized >= 2:
+            return
+
+        if have_PIL:
+            try:
+                import PIL.JpegPresets
+                sys.modules['JpegPresets'] = PIL.JpegPresets
+            except ImportError:
+                pass
+
+        for plugin in plugins:
+            try:
+                if have_PIL:
+                    try:
+                        # First try absolute import through PIL (for
+                        # Pillow support) only then try relative imports
+                        m = __import__(
+                            'PIL.' + plugin, globals(), locals(), [])
+                        m = getattr(m, plugin)
+                        sys.modules[plugin] = m
+                        continue
+                    except ImportError:
+                        pass
+
+                __import__(plugin, globals(), locals(), [])
+            except ImportError:
+                if Image.DEBUG:
+                    print('Image: failed to import')
+
+        if Image.OPEN or Image.SAVE:
+            Image._initialized = 2
+            return 1
+
+    Image.init = init
+
+
+_recipes_pil_prescript(['PcxImagePlugin', 'IptcImagePlugin', 'BmpImagePlugin', 'GifImagePlugin', 'IcoImagePlugin', 'McIdasImagePlugin', 'FitsStubImagePlugin', 'SpiderImagePlugin', 'PcdImagePlugin', 'PixarImagePlugin', 'XpmImagePlugin', 'GribStubImagePlugin', 'WebPImagePlugin', 'JpegImagePlugin', 'XbmImagePlugin', 'Jpeg2KImagePlugin', 'FtexImagePlugin', 'FpxImagePlugin', 'PngImagePlugin', 'MicImagePlugin', 'DcxImagePlugin', 'DdsImagePlugin', 'EpsImagePlugin', 'ImtImagePlugin', 'XVThumbImagePlugin', 'PdfImagePlugin', 'GbrImagePlugin', 'WmfImagePlugin', 'MpoImagePlugin', 'SgiImagePlugin', 'Hdf5StubImagePlugin', 'PsdImagePlugin', 'MspImagePlugin', 'PalmImagePlugin', 'BufrStubImagePlugin', 'TiffImagePlugin', 'SunImagePlugin', 'MpegImagePlugin', 'TgaImagePlugin', 'PpmImagePlugin', 'FliImagePlugin', 'CurImagePlugin', 'IcnsImagePlugin', 'ImImagePlugin', 'BlpImagePlugin'])
+
+
+def _setup_ctypes():
+    from ctypes.macholib import dyld
+    import os
+    frameworks = os.path.join(os.environ['RESOURCEPATH'], '..', 'Frameworks')
+    dyld.DEFAULT_FRAMEWORK_FALLBACK.insert(0, frameworks)
+    dyld.DEFAULT_LIBRARY_FALLBACK.insert(0, frameworks)
+
+
+_setup_ctypes()
+
+
+import os
+os.environ['MATPLOTLIBDATA'] = os.path.join(
+    os.environ['RESOURCEPATH'], 'mpl-data')
+
+
+DEFAULT_SCRIPT='sample_plots.py'
 SCRIPT_MAP={}
-try:
-    _run()
-except KeyboardInterrupt:
-    pass
+_run()
