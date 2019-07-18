@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>sample_plots</string>
 	<key>CFBundleIconFile</key>
-	<string>PythonApplet.icns</string>
+	<string>sample_plots</string>
 	<key>CFBundleIdentifier</key>
 	<string>org.pythonmac.unspecified.sample_plots</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -41,7 +41,7 @@
 	<key>PyOptions</key>
 	<dict>
 		<key>alias</key>
-		<false/>
+		<true/>
 		<key>argv_emulation</key>
 		<false/>
 		<key>emulate_shell_environment</key>
@@ -63,21 +63,22 @@
 	<array/>
 	<key>PyRuntimeLocations</key>
 	<array>
-		<string>@executable_path/../Frameworks/Python.framework/Versions/3.7/Python</string>
+		<string>@executable_path/../Frameworks/libpython3.7.dylib</string>
+		<string>/Users/neilleonard/anaconda3/lib/libpython3.7.dylib</string>
 	</array>
 	<key>PythonInfoDict</key>
 	<dict>
 		<key>PythonExecutable</key>
-		<string>/Users/oregonweedery/env1/bin/python3</string>
+		<string>/Users/neilleonard/venv/bin/python</string>
 		<key>PythonLongVersion</key>
-		<string>3.7.3 (default, Jun 19 2019, 07:40:15) 
-[Clang 10.0.0 (clang-1000.11.45.5)]</string>
+		<string>3.7.3 (default, Mar 27 2019, 16:54:48) 
+[Clang 4.0.1 (tags/RELEASE_401/final)]</string>
 		<key>PythonShortVersion</key>
 		<string>3.7</string>
 		<key>py2app</key>
 		<dict>
 			<key>alias</key>
-			<false/>
+			<true/>
 			<key>template</key>
 			<string>app</string>
 			<key>version</key>
