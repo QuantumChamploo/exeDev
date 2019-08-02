@@ -3,6 +3,8 @@ import pygame
 pygame.init()
 
 black = (0,0,0)
+largeText = pygame.font.Font('freesansbold.ttf',25)
+hldtext = "Press Z to quit"
 
 clock = pygame.time.Clock()
 gameDisplay = pygame.display.set_mode((800,600)) 
@@ -28,6 +30,9 @@ while displaying:
 	gameDisplay.fill((255, 255, 255))
 
 	gameDisplay.blit(textBoxImage, (550,1))	
+	BottomSurf, BottomRect = text_objects(hldtext, largeText)
+	BottomRect.center = ((200),(370))
+	gameDisplay.blit(BottomSurf, BottomRect)
 	pygame.display.flip()
 	clock.tick(15)
 
