@@ -2,11 +2,15 @@
 
 block_cipher = None
 
+added_files = [
+    ('images/','./images/')  
+    ]
+
 
 a = Analysis(['test1.py'],
              pathex=['/Users/neilleonard/Desktop/Coding/pyappdev/exeDev/pyIn/pygametest1'],
              binaries=[],
-             datas=[],
+             datas=[('images/sideMenuBox.png', 'images/sideMenuBox')],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],

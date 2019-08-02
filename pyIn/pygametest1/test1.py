@@ -1,8 +1,13 @@
 import pygame
+from pygame import font 
+#from images import *
+
 
 pygame.init()
 
 black = (0,0,0)
+
+textBoxImage = pygame.image.load('images/sideMenuBox.png')	
 largeText = pygame.font.Font('freesansbold.ttf',25)
 hldtext = "Press Z to quit"
 
@@ -16,7 +21,7 @@ def text_objects(text, font):
 	return textSurface, textSurface.get_rect()
 
 #largeText = pygame.font.Font('freesansbold.ttf',25)
-textBoxImage = pygame.image.load('sideMenuBox.png')	
+
 
 while displaying:
 	for event in pygame.event.get():
