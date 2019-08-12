@@ -2,6 +2,7 @@ import pygame
 from pygame import font 
 import os
 bundle_dir = sys._MEIPASS
+import sys
 #from images import *
 
 
@@ -33,6 +34,8 @@ while displaying:
 	for event in pygame.event.get():
 		if event.type == pygame.KEYUP and event.key == pygame.K_z:
 			diplaying = False
+			sys.exit()
+
 			pygame.quit()
 			#quit()
 		
