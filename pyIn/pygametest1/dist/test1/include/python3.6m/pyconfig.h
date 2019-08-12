@@ -7,7 +7,7 @@
 
 
 /* Define if building universal (internal helper macro) */
-/* #undef AC_APPLE_UNIVERSAL_BUILD */
+#define AC_APPLE_UNIVERSAL_BUILD 1
 
 /* Define for AIX if your compiler is a genuine IBM xlC/xlC_r and you want
    support for AIX C++ shared extension modules. */
@@ -106,7 +106,7 @@
 /* #undef HAVE_BROKEN_UNSETENV */
 
 /* Has builtin atomics */
-#define HAVE_BUILTIN_ATOMIC 1
+/* #undef HAVE_BUILTIN_ATOMIC */
 
 /* Define to 1 if you have the 'chflags' function. */
 #define HAVE_CHFLAGS 1
@@ -141,29 +141,14 @@
 /* Define to 1 if you have the `copysign' function. */
 #define HAVE_COPYSIGN 1
 
-/* Define to 1 if you have the <crypt.h> header file. */
-/* #undef HAVE_CRYPT_H */
-
 /* Define to 1 if you have the `ctermid' function. */
 #define HAVE_CTERMID 1
 
 /* Define if you have the 'ctermid_r' function. */
 #define HAVE_CTERMID_R 1
 
-/* Define if you have the 'filter' function. */
-#define HAVE_CURSES_FILTER 1
-
 /* Define to 1 if you have the <curses.h> header file. */
 #define HAVE_CURSES_H 1
-
-/* Define if you have the 'has_key' function. */
-#define HAVE_CURSES_HAS_KEY 1
-
-/* Define if you have the 'immedok' function. */
-#define HAVE_CURSES_IMMEDOK 1
-
-/* Define if you have the 'is_pad' function or macro. */
-#define HAVE_CURSES_IS_PAD 1
 
 /* Define if you have the 'is_term_resized' function. */
 #define HAVE_CURSES_IS_TERM_RESIZED 1
@@ -173,18 +158,6 @@
 
 /* Define if you have the 'resize_term' function. */
 #define HAVE_CURSES_RESIZE_TERM 1
-
-/* Define if you have the 'syncok' function. */
-#define HAVE_CURSES_SYNCOK 1
-
-/* Define if you have the 'typeahead' function. */
-#define HAVE_CURSES_TYPEAHEAD 1
-
-/* Define if you have the 'use_env' function. */
-#define HAVE_CURSES_USE_ENV 1
-
-/* Define if you have the 'wchgat' function. */
-#define HAVE_CURSES_WCHGAT 1
 
 /* Define to 1 if you have the declaration of `isfinite', and to 0 if you
    don't. */
@@ -382,14 +355,14 @@
 /* #undef HAVE_GCC_ASM_FOR_MC68881 */
 
 /* Define if we can use x64 gcc inline assembler */
-#define HAVE_GCC_ASM_FOR_X64 1
+/* #undef HAVE_GCC_ASM_FOR_X64 */
 
 /* Define if we can use gcc inline assembler to get and set x87 control word
    */
 #define HAVE_GCC_ASM_FOR_X87 1
 
 /* Define if your compiler provides __uint128_t */
-#define HAVE_GCC_UINT128_T 1
+/* #undef HAVE_GCC_UINT128_T */
 
 /* Define if you have the getaddrinfo function. */
 #define HAVE_GETADDRINFO 1
@@ -500,7 +473,7 @@
 /* Define to 1 if you have the <ieeefp.h> header file. */
 /* #undef HAVE_IEEEFP_H */
 
-/* Define to 1 if you have the 'if_nameindex' function. */
+/* Define to 1 if you have the `if_nameindex' function. */
 #define HAVE_IF_NAMEINDEX 1
 
 /* Define if you have the 'inet_aton' function. */
@@ -602,7 +575,7 @@
 /* Define to 1 if you have the <linux/tipc.h> header file. */
 /* #undef HAVE_LINUX_TIPC_H */
 
-/* Define to 1 if you have the 'lockf' function and the F_LOCK macro. */
+/* Define to 1 if you have the `lockf' function. */
 #define HAVE_LOCKF 1
 
 /* Define to 1 if you have the `log1p' function. */
@@ -759,13 +732,13 @@
 /* #undef HAVE_RENAMEAT */
 
 /* Define if readline supports append_history */
-#define HAVE_RL_APPEND_HISTORY 1
+/* #undef HAVE_RL_APPEND_HISTORY */
 
 /* Define if you have readline 2.1 */
 #define HAVE_RL_CALLBACK 1
 
 /* Define if you can turn off readline's signal handling. */
-#define HAVE_RL_CATCH_SIGNAL 1
+/* #undef HAVE_RL_CATCH_SIGNAL */
 
 /* Define if you have readline 2.2 */
 #define HAVE_RL_COMPLETION_APPEND_CHARACTER 1
@@ -777,13 +750,13 @@
 #define HAVE_RL_COMPLETION_MATCHES 1
 
 /* Define if you have rl_completion_suppress_append */
-#define HAVE_RL_COMPLETION_SUPPRESS_APPEND 1
+/* #undef HAVE_RL_COMPLETION_SUPPRESS_APPEND */
 
 /* Define if you have readline 4.0 */
 #define HAVE_RL_PRE_INPUT_HOOK 1
 
 /* Define if you have readline 4.0 */
-#define HAVE_RL_RESIZE_TERMINAL 1
+/* #undef HAVE_RL_RESIZE_TERMINAL */
 
 /* Define to 1 if you have the `round' function. */
 #define HAVE_ROUND 1
@@ -1061,9 +1034,6 @@
 /* Define to 1 if you have the <sys/poll.h> header file. */
 #define HAVE_SYS_POLL_H 1
 
-/* Define to 1 if you have the <sys/random.h> header file. */
-#define HAVE_SYS_RANDOM_H 1
-
 /* Define to 1 if you have the <sys/resource.h> header file. */
 #define HAVE_SYS_RESOURCE_H 1
 
@@ -1084,9 +1054,6 @@
 
 /* Define to 1 if you have the <sys/syscall.h> header file. */
 #define HAVE_SYS_SYSCALL_H 1
-
-/* Define to 1 if you have the <sys/sysmacros.h> header file. */
-/* #undef HAVE_SYS_SYSMACROS_H */
 
 /* Define to 1 if you have the <sys/sys_domain.h> header file. */
 #define HAVE_SYS_SYS_DOMAIN_H 1
@@ -1399,7 +1366,7 @@
 /* #undef WANT_SIGFPE_HANDLER */
 
 /* Define if WINDOW in curses.h offers a field _flags. */
-#define WINDOW_HAS_FLAGS 1
+/* #undef WINDOW_HAS_FLAGS */
 
 /* Define if you want documentation strings in extension modules */
 #define WITH_DOC_STRINGS 1
@@ -1417,7 +1384,7 @@
 
 /* Define if you want to produce an OpenStep/Rhapsody framework (shared
    library plus accessory files). */
-/* #undef WITH_NEXT_FRAMEWORK */
+#define WITH_NEXT_FRAMEWORK 1
 
 /* Define if you want to compile in Python-specific mallocs */
 #define WITH_PYMALLOC 1

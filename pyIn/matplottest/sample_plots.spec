@@ -1,10 +1,10 @@
-# -*- mode: python -*-
+# -*- mode: python ; coding: utf-8 -*-
 
 block_cipher = None
 
 
 a = Analysis(['sample_plots.py'],
-             pathex=['/Users/neilleonard/Desktop/Coding/pyappdev/exeDev/pyIn/matplottest'],
+             pathex=['/Users/neilleonard/Desktop/Coding/exeDev/pyIn/matplottest'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -33,4 +33,5 @@ coll = COLLECT(exe,
                a.datas,
                strip=False,
                upx=True,
+               upx_exclude=[],
                name='sample_plots')
