@@ -2,15 +2,11 @@
 
 block_cipher = None
 
-added_files = [
-    ('images/','./images/')  
-    ]
-
 
 a = Analysis(['test1.py'],
-             pathex=['/Users/neilleonard/Desktop/Coding/pyappdev/exeDev/pyIn/pygametest1'],
+             pathex=['C:\\Users\\Slammy\\Documents\\CIS\\py2exe\\exeDev\\pyIn\\pygametest1'],
              binaries=[],
-             datas=[('images/sideMenuBox.png', './images'), ('fonts/freesansbold.ttf', './fonts')],
+             datas=[('./images/sideMenuBox.png', './images'), ('./fonts/FreeSansBold.ttf', './fonts')],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
@@ -23,19 +19,15 @@ pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,
           a.scripts,
+          a.binaries,
+          a.zipfiles,
+          a.datas,
           [],
-          exclude_binaries=True,
           name='test1',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
+          upx_exclude=[],
+          runtime_tmpdir=None,
           console=True )
-coll = COLLECT(exe,
-               a.binaries,
-               a.zipfiles,
-               a.datas,
-               strip=False,
-               upx=True,
-               upx_exclude=[],
-               name='test1')

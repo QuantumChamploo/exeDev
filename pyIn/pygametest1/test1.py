@@ -1,14 +1,18 @@
 import pygame
 from pygame import font 
+import os
+import sys
+bundle_dir = sys._MEIPASS
 #from images import *
 
+print(bundle_dir)
 
 pygame.init()
 
 black = (0,0,0)
 
-textBoxImage = pygame.image.load('images/sideMenuBox.png')	
-largeText = pygame.font.Font('fonts/FreeSansBold.ttf',25)
+textBoxImage = pygame.image.load(bundle_dir + '\\images\\sideMenuBox.png')	
+largeText = pygame.font.Font(bundle_dir + '\\fonts\\FreeSansBold.ttf',25)
 hldtext = "Press Z to quit"
 
 clock = pygame.time.Clock()
