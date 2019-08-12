@@ -8,7 +8,7 @@ pygame.init()
 black = (0,0,0)
 
 textBoxImage = pygame.image.load('images/sideMenuBox.png')	
-largeText = pygame.font.Font('freesansbold.ttf',25)
+largeText = pygame.font.Font('fonts/FreeSansBold.ttf',25)
 hldtext = "Press Z to quit"
 
 clock = pygame.time.Clock()
@@ -28,7 +28,7 @@ while displaying:
 		if event.type == pygame.KEYUP and event.key == pygame.K_z:
 			diplaying = False
 			pygame.quit()
-			quit()
+
 		
 
 
