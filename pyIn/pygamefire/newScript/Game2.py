@@ -13,6 +13,10 @@ from classes.npcSprite import npcSprite
 from classes.removableSprite import removableSprite
 from classes.enemySprite import enemySprite
 
+
+import sys
+bundle_dir = sys._MEIPASS + '/'
+
 black = (0,0,0)
 white = (255,255,255)
 red = (255,0,0)
@@ -71,8 +75,10 @@ class Game(object):
     def initArea(self, mapFile):												# initArea
 																				# *** *** ***
 																				
+        
         self.tilemap = tmx.load(mapFile, screen.get_size())
         self.mapFile = mapFile
+
         
         # These fields are sprite class abstract groups. We will use the tmx API to do remove/kill and parse through the games
         # sprite instantiations 
@@ -130,7 +136,7 @@ class Game(object):
 
             print (mapFile)
 
-            if mapFile == 'WallsOrFireBalls.tmx':
+            if mapFile == bundle_dir + 'WallsOrFireBalls.tmx':
                 self.player.transitionIn = True
                 print (self.player.transitionIn)
 
@@ -176,8 +182,10 @@ class Game(object):
 
     def main(self):
         clock = pygame.time.Clock()
+        print ('in main')
         
-        self.initArea('WallsOrFireBalls.tmx')
+        # maybe dont deen bundle dir
+        self.initArea(bundle_dir + 'WallsOrFireBalls.tmx')
         
 
         
@@ -197,9 +205,9 @@ class Game(object):
                         return
                     if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
                         self.initMenu()
-                thisImage = pygame.image.load('images/MGlogo.jpg')
-                fullHeart = pygame.image.load('images/fullheart.png')
-                emptyHeart = pygame.image.load('images/emptyheart.png')
+                thisImage = pygame.image.load(bundle_dir + 'images/MGlogo.jpg')
+                fullHeart = pygame.image.load(bundle_dir + 'images/fullheart.png')
+                emptyHeart = pygame.image.load(bundle_dir + 'images/emptyheart.png')
 
                 self.tilemap.update(dt, self)
                 screen.fill((0,0,0))
@@ -228,59 +236,60 @@ class Game(object):
                     gameDisplay.blit(emptyHeart, (30, 120))                                                                               
                 gameDisplay.blit(thisImage, (690, 500))
 
-                if self.mapFile == 'WallsOrFireBalls.tmx':
-                    if self.player.transitionIn :
+                
+                #if self.mapFile == bundle_dir + 'WallsOrFireBalls.tmx':
+                if self.player.transitionIn :
 
+                    self.player.transTime += dt
+                    if self.player.transTime < 1000:
+                        #self.tilemap.draw(self.screen)
+                        #if self.mapFile == 'WallsOrFireBalls.tmx': 
+
+                        largeText = pygame.font.Font(bundle_dir + 'fonts/Exo2-MediumCondensed.ttf',65)
+                        TextSurf, TextRect = text_objectsColor('Level ' + str(self.player.WOFlevel), largeText, COLOR_LIGHTCORAL)
+
+                        TextRect.center = ((400),(100))
+                        gameDisplay.blit(TextSurf, TextRect)
+
+                    else:
+                        self.player.transTime = 0
+                        self.player.transitionIn = False
+
+                if self.player.transitionOut:
+                    
+                    if self.player.hearts > 0:
                         self.player.transTime += dt
                         if self.player.transTime < 1000:
                             #self.tilemap.draw(self.screen)
-                            if self.mapFile == 'WallsOrFireBalls.tmx': 
+                            #if self.mapFile == 'WallsOrFireBalls.tmx': 
 
-                                largeText = pygame.font.Font('fonts/Exo2-MediumCondensed.ttf',65)
-                                TextSurf, TextRect = text_objectsColor('Level ' + str(self.player.WOFlevel), largeText, COLOR_LIGHTCORAL)
-        
-                                TextRect.center = ((400),(100))
-                                gameDisplay.blit(TextSurf, TextRect)
-
+                            largeText = pygame.font.Font(bundle_dir + 'fonts/Exo2-MediumCondensed.ttf',65,)
+                            TextSurf, TextRect = text_objectsColor('Going to level ' + str(self.player.WOFlevel), largeText, COLOR_LIGHTCORAL)
+    
+                            TextRect.center = ((400),(100))
+                            gameDisplay.blit(TextSurf, TextRect)
+                                
                         else:
                             self.player.transTime = 0
-                            self.player.transitionIn = False
+                            self.player.transitionOut = False
+                            self.initArea(bundle_dir + 'WallsOrFireBalls.tmx')
+                    else:
+                        self.player.transTime += dt
+                        if self.player.transTime < 1000:
+                            #self.tilemap.draw(self.screen)
+                            #if self.mapFile == 'WallsOrFireBalls.tmx': 
 
-                    if self.player.transitionOut:
-                        
-                        if self.player.hearts > 0:
-                            self.player.transTime += dt
-                            if self.player.transTime < 1000:
-                                #self.tilemap.draw(self.screen)
-                                if self.mapFile == 'WallsOrFireBalls.tmx': 
-
-                                    largeText = pygame.font.Font('fonts/Exo2-MediumCondensed.ttf',65,)
-                                    TextSurf, TextRect = text_objectsColor('Going to level ' + str(self.player.WOFlevel), largeText, COLOR_LIGHTCORAL)
-            
-                                    TextRect.center = ((400),(100))
-                                    gameDisplay.blit(TextSurf, TextRect)
-                                    
-                            else:
-                                self.player.transTime = 0
-                                self.player.transitionOut = False
-                                self.initArea('WallsOrFireBalls.tmx')
+                            largeText = pygame.font.Font(bundle_dir + 'fonts/Exo2-MediumCondensed.ttf',65)
+                            TextSurf, TextRect = text_objectsColor('OH GOD YOUR DYING', largeText, red)
+    
+                            TextRect.center = ((400),(100))
+                            gameDisplay.blit(TextSurf, TextRect)
+                                
                         else:
-                            self.player.transTime += dt
-                            if self.player.transTime < 1000:
-                                #self.tilemap.draw(self.screen)
-                                if self.mapFile == 'WallsOrFireBalls.tmx': 
-
-                                    largeText = pygame.font.Font('fonts/Exo2-MediumCondensed.ttf',65)
-                                    TextSurf, TextRect = text_objectsColor('OH GOD YOUR DYING', largeText, red)
-            
-                                    TextRect.center = ((400),(100))
-                                    gameDisplay.blit(TextSurf, TextRect)
-                                    
-                            else:
-                                self.player.transTime = 0
-                                self.player.transitionOut = False
-                                self.initArea('babyHell.tmx')
-                                self.samePlayer = False
+                            self.player.transTime = 0
+                            self.player.transitionOut = False
+                            self.initArea(bundle_dir + 'babyHell.tmx')
+                            self.samePlayer = False
 
 
 
@@ -291,7 +300,7 @@ if __name__ == '__main__':
     pygame.init()
     screen = pygame.display.set_mode((640, 480))
     pygame.display.set_caption("Pyllet Town")
-    os.system('python3 test3.py')
+    #os.system('python3 test3.py')
     pygame.mixer.pre_init(44100, 16, 2, 4096)
     pygame.mixer.init()
     pygame.mixer.music.set_volume(0.1)

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="40" height="36" tilewidth="32" tileheight="32" infinite="0" nextobjectid="1">
+ <tileset firstgid="1" name="ground" tilewidth="32" tileheight="32" tilecount="6" columns="6">
+  <image source="tiles/groundCompiled.png" width="192" height="32"/>
+ </tileset>
+ <tileset firstgid="7" name="lab" tilewidth="32" tileheight="32" tilecount="96" columns="12">
+  <image source="tiles/lab.png" width="384" height="256"/>
+  <tile id="0">
+   <properties>
+    <property name="solid" value=""/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="solid" value=""/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="solid" value=""/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="solid" value=""/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="solid" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="103" name="objects" tilewidth="32" tileheight="32" tilecount="18" columns="9">
+  <image source="tiles/objects.png" width="288" height="64"/>
+  <tile id="4">
+   <properties>
+    <property name="sign" value="Unlock SuperWaveDashing"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="sign" value="Unlock SuperWaveDashing"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="sign" value="Unlock SuperWaveDashing"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="sign" value="Unlock SuperWaveDashing"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="121" name="house" tilewidth="32" tileheight="32" tilecount="48" columns="8">
+  <image source="tiles/house.png" width="256" height="192"/>
+ </tileset>
+ <tileset firstgid="169" name="triggers" tilewidth="32" tileheight="32" tilecount="12" columns="6">
+  <image source="tiles/triggers.png" width="192" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="playerStart" value="down"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="entry" value="test.tmx"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="entry" value="test.tmx"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="solid" value=""/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="solid" value=""/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="water" value=""/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="solid" value=""/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="waveDashable" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="181" name="sprites" tilewidth="32" tileheight="32" tilecount="8" columns="4">
+  <image source="tiles/sprites.png" width="128" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="frames" value="8"/>
+    <property name="height" value="32"/>
+    <property name="mspf" value="350"/>
+    <property name="src" value="sprites/water2.png"/>
+    <property name="width" value="32"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="frames" value="4"/>
+    <property name="height" value="32"/>
+    <property name="mspf" value="350"/>
+    <property name="src" value="sprites/flower.png"/>
+    <property name="width" value="32"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="frames" type="int" value="4"/>
+    <property name="height" type="int" value="32"/>
+    <property name="mspf" type="int" value="350"/>
+    <property name="src" value="sprites/flower2.png"/>
+    <property name="width" type="int" value="32"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="189" source="asdf.tsx"/>
+ <tileset firstgid="253" source="interactions.tsx"/>
+ <tileset firstgid="265" source="mushy.tsx"/>
+ <tileset firstgid="285" source="colorGround.tsx"/>
+ <tileset firstgid="292" source="gamingCabinets.tsx"/>
+ <layer name="background" width="40" height="36">
+  <data encoding="base64" compression="zlib">
+   eJy1mGtygzAMhFHaa9iQyeV6/xN0mKDpskiW5JIfOwT84PNKFhBZlkUMfR2y2kb9PVXnuaufxfeS+/iidWf1A9r5VHfNf5eQ7U6+p7y1/97kLfyNwnFe22iMtkcc1vVGczY5z9eIoRFHo3U1GmeNx/kjPm+9ntgzz1tla8HcER+vK6tG62KfuC/P35L+7f265NbKPuG9M+Ot9gwfMmZ864eQT5m/E+Nn+B7LWxn/upzvh1xdrn2ZCfPpE3zoA+eh18+rP5n9wetl8f35Gt63w7HLlYsZlYO9Qf9wz+m5zq/5xvG06iXXNyu2o/r3cPxjzzvdY5PrdStWfE15rf1drc/WOtknjtloX1rnvO8rfF49Y3l8VSlrZv9y/mjeYHz49ywf53f2+cZ1yxPn26ivVa9wbRk+rg1Zxurzmvmy+Yfj1PM1of/kXsU/9mG/twyObcDI8bTiy/mezT/ViA2ZZn3Emprh49q7BjGusInhIeZfxT9k5L2iPLL8fQOuMIbrDu43bEc9jlhX6h/nh+UVe8vvj5ucn9vWEVV5f9mIzeKZ2ccY54p/Hdq87zLed955Vln/lA1rkNUvmp/9teKPbTP+sZcRH753R/WS86Gaf8iWeb495cyYYety9a9J/Pyo+vcS2z8vtnitydm/6P1lJv9eNMZ694qk32Gf9g8Zn8Swic+NfKP8szij/Kv8j1b5Vo3yveLfp/+H/AWxgVjF
+  </data>
+ </layer>
+ <layer name="actions" width="40" height="36">
+  <data encoding="base64" compression="zlib">
+   eJztzrENgDAQBEH3a4dQMa4AKIAPHEP4jzQjbXzXGgDU0aORfeLFFu2J+0c0E/e/XNGdfQKKO1dVVf8HAMC/POyECTc=
+  </data>
+ </layer>
+ <layer name="interactions" width="40" height="36" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJzt1kEKgDAMBMCK1f9/WG2Kl9IHlBRmYENyy3FLAQAAVqnHn6yy/wcA7OeJvMP99ZGob5xT/7livxP9t7sG660DJg==
+  </data>
+ </layer>
+ <layer name="foreground" width="40" height="36">
+  <data encoding="base64" compression="zlib">
+   eJzt2PdPE3EYx/FroiJQCrQFClQRBHEhoCi4ByLDAQqCggsnDgjDEQVFxYWKCLgQERfon8n7l0vg0vvet8d9rYMneeVJru1zTz65fJucpoWuS2gx+Uz0/Va0zeh251hVOzrCmKt//yZuzeh25+il7+tUN8vPbtf3daqb5We3h/t8/K4y5venlWx+t3EH3ejBXdxDL+4r3E82vwd4iD48wmM8wVM8U7ifbH79eI4XeIkBvMIgXkvcJ9qlaTGIhRtxLrn9ZPMbwjBG8AZv8Q7v8UHiPh72iUcCEuGV3M8qv6u4hlF8xBg+YRyfMYEvgvn6733s40cSkpHiUH7XcQNf8Q3f8QOTmMJP/BLM138fYJ9UpCEdQYfyi3T9K+dfpOp/zS8KixGNGMTCjTh4EI8EJMIrmKMqPx/8SEIyUhBAKtKQjiCWYKlgjmx+l3ElRNfPN2NlYBkykYXlyEYOViAXK7EKqwX3lc2vE10hun6+GWsN1iIP65CPAhRiPTagCBuxSXBfVc9fMUqwGVuwFduwHTuwE7uwG3sEc1Q9f6XYizLsQzkqUIkq7McBHMQhwRxV+VWjBodxBLWow1HUowHHcByNgjmq8mvCCZzEKZzGGTTjLM7hPC7gomDO/P/H3EpVflbnpfG6WanKz+q8NF43K9n8FlpQVbL5LRB8tsjRjWaXbH6R2m8+v7nV35afWY5W+zn9/tDq/V+4+zn9/tDYpwEjzry9
+  </data>
+ </layer>
+ <layer name="statebasedSprites" width="40" height="36">
+  <data encoding="base64" compression="zlib">
+   eJztzsEJACAMALHuv6VuUCewE/iTQkng/hcBAEy1qt098ZDV6Z4AAADgmwsi7AOn
+  </data>
+ </layer>
+ <layer name="enemySprites" width="40" height="36">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20JT6AAAAAAAOBvFoAAAQ==
+  </data>
+ </layer>
+ <layer name="sprites" width="40" height="36" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJzt0UEKgDAMRcHc/z6ix+vSjSGWSO1iBkq2j98IAAAA3rqK+6ed27j5jx779XT2O5KXOYv7tZm+1W3x0FXtt5q+Hn25AZCrK1M=
+  </data>
+ </layer>
+ <layer name="removableSprites" width="40" height="36" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJztzqERADAIBEH6by0lkGIyE43CINhVL15cBADAXlnsrI6LnemAhjsdAAAAfA9CfgQ5
+  </data>
+ </layer>
+ <layer name="npcSprites" width="40" height="36">
+  <data encoding="base64" compression="zlib">
+   eJztzrENwCAMAEH2X5K00CQtVHgB3FqK7qTvvzUAAAAgM6JZPZFY0a6eALjo0VM9kXijr3rixw5M6Adl
+  </data>
+ </layer>
+ <layer name="triggers" width="40" height="36" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJztmNsOwyAIhn3/N9m6U7c94LiQZCFFkUO1m39CuEApfKmlMaVtXcFuTKy0fgF7fnltnppeYG9F3jXXhb61Pvpc3O/lT2Bnx/xYr1d9d7AHYeKRdzRRfqNJyq8Xdyk/jHM+ur5oftZ90fy0+2r90Pglm5b7QvZL6+P6of1ifVIOdB3OEy9+vfUr379e+ld+XnM/il/teyk9/1HzY29+rf3vza9V8/2zqTZ3R+NH525vfl6a82Oe35RzlCxKUn7amFUt/DQxqyY/m47Gr+Q5edyb1bzkf46T570h5z9k92Jb
+  </data>
+ </layer>
+</map>

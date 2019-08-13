@@ -11,8 +11,9 @@ from classes.wallSprite import wallSprite
 from classes.enemySprite import enemySprite
 from classes.collectibleSprite import collectibleSprite
 import os
+import sys
 
-
+bundle_dir = sys._MEIPASS + '/'
 
 
 black = (0,0,0)
@@ -37,7 +38,7 @@ def play_sound(path):
   sound = _sound_library.get(path)
   if sound == None:
     canonicalized_path = path.replace('/', os.sep).replace('\\', os.sep)
-    sound = pygame.mixer.Sound(canonicalized_path)
+    sound = pygame.mixer.Sound(bundle_dir + canonicalized_path)
     _sound_library[path] = sound
   sound.play()
 
@@ -318,7 +319,7 @@ class Player(pygame.sprite.Sprite):
 
 	def __init__(self, location, orientation, *groups):
 		super(Player, self).__init__(*groups)
-		self.image = pygame.image.load('sprites/milosprite01.png')
+		self.image = pygame.image.load(bundle_dir+'sprites/milosprite01.png')
 		self.imageDefault = self.image.copy()
 		self.rect = pygame.Rect(location, (64,64))
 		self.orient = orientation 
@@ -388,7 +389,7 @@ class Player(pygame.sprite.Sprite):
 		# 		self.transTime = 0
 		# 		self.transitionIn = False
 
-		if game.mapFile == 'WallsOrFireBalls.tmx':
+		if game.mapFile == bundle_dir + 'WallsOrFireBalls.tmx':
 			if len(game.enemies) == 0:
 				if self.transitionOut == False:
 					self.WOFlevel += 1
